@@ -2,21 +2,6 @@ import React from 'react';
 import Question from './Question';
 
 class QuestionList extends React.Component {
-    constructor(props) {
-        super(props);
-
-        // Not sure if I'll need state for this object; might just pass props up to Exam
-        this.state = {
-            mood:"hungry",
-            selected: '', // Current selected answer choices
-        }
-    }
-
-    // To modify state,so components update, use setState() rather than updating
-    // state directly.
-    selectChoice() {
-
-    }
 
     renderQuestion(item) {
         return(
@@ -24,6 +9,7 @@ class QuestionList extends React.Component {
                 key={item.qid}
                 question={item.question}
                 choices={item.choices}
+                onClick={i => this.props.onClick(item.qid,i)}
             />
         );
     }
