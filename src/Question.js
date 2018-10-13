@@ -11,7 +11,6 @@ class Question extends React.Component {
     }
 
     /* Things to do:
-    - Be able to select answer choices
     - OnMouseEnter effects(?)
     */
 
@@ -22,9 +21,10 @@ class Question extends React.Component {
                     <Problem problem={this.props.question}/> {/* Problem statement*/}
                     {this.props.choices.map((item, i) => 
                         <Choice 
-                            key={i} /* Can a find a better key than this?*/
-                            option={item}
-                            onClick={() => this.props.onClick(item)}
+                            key = {i} /* Find some better option than this...*/
+                            optionText={item}
+                            // Clicking an option passes that up...
+                            onClick={() => this.props.onClick(i)}
                         />)}
                 </div>
             </div>
@@ -34,9 +34,7 @@ class Question extends React.Component {
 
 function Problem(props) {
     return(
-        <div
-            className="Problem" 
-        >
+        <div className="Problem">
             <p>{props.problem}</p>
         </div>
     )
@@ -44,13 +42,8 @@ function Problem(props) {
 
 function Choice(props) {
     return (
-        <button 
-            type="button"
-            className="Choice"
-            onClick={props.onClick}
-        >
-            {/*Find a way to get unique keys*/}
-            {props.option}
+        <button type="button" className="Choice" onClick={props.onClick}> 
+            {props.optionText}
         </button>     
     );
 }
