@@ -2,30 +2,14 @@ import React from 'react';
 import './Question.css';
 
 class Question extends React.Component {
-    constructor(props) {
-        super(props);
-        // Question state is question with answer choices in some order
-        this.state = {
-            selected: null, // Answer choice that is selected
-        }
-    }
-
-    /* Things to do:
-    - OnMouseEnter effects(?)
-    */
-
     render() {
         return(
             <div className='Question'>
                 <div className="Problem">
-                    <Problem problem={this.props.question}/> {/* Problem statement*/}
-                    {this.props.choices.map((item, i) => 
-                        <Choice 
-                            key = {i} /* Find some better option than this...*/
-                            optionText={item}
-                            // Clicking an option passes that up...
-                            onClick={() => this.props.onClick(i)}
-                        />)}
+                    <Problem problem={this.props.question}/> 
+                    {/* Insert code here to render choices*/}
+                    <Choice>Sample Text</Choice>
+
                 </div>
             </div>
         )
@@ -40,12 +24,24 @@ function Problem(props) {
     )
 }
 
-function Choice(props) {
-    return (
-        <button type="button" className="Choice" onClick={props.onClick}> 
-            {props.optionText}
-        </button>     
-    );
+class Choice extends React.Component {
+    render() {
+        const {
+            onClick,
+            className,
+            children,
+        } = this.props;
+
+        return (
+            <button 
+                onClick={onClick}
+                className={className}
+                type="button"  
+            >
+                {children}
+            </button>     
+        );
+    }
 }
 
 export default Question;

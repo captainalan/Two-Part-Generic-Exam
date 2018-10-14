@@ -18,15 +18,13 @@ class Exam extends Component {
                 {qid:'q3', question:'Foo three?', choices:['Bar tree','Baz','Bloop','Blip']},
                 {qid:'q4', question:'Foo four?', choices:['Foo for thought','answer','me','this']}
             ],
-            responses:[] // Store current responses as part of state; which data struct is best?
         }
     }
-    /* To modify state, so components update, use setState() rather than updating
-       state directly. */
+
     selectChoice(qid,resp) {
-        console.log('You said ' + resp + ' for ' + qid);
-        // Currently inputed responses (basing this method off of handleClick in tic-tac-toe example)
-        // const currentResponses = [] 
+        // console.log('You said ' + resp + ' for ' + qid);
+        // Answered question just stored in this.state under qid as key for now
+        this.setState({ [qid]:resp }); // JSX trickery to use dynamic key; maybe not best practice? 
     }
 
     render() {

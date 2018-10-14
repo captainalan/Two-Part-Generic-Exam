@@ -6,7 +6,7 @@ class QuestionList extends React.Component {
     renderQuestion(item,i) {
         return(
             <Question 
-                key={item.qid} /*Look for a better solution than this */
+                key={item.qid} /* Look for a better solution than this */
                 question={item.question}
                 choices={item.choices}
                 onClick={i => this.props.onClick(item.qid,i)}
