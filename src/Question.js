@@ -1,12 +1,14 @@
 import React from 'react';
 import './Question.css';
 
+// Each multiple choice question consists of a problem statement and
+// answer choices.
 class Question extends React.Component {
     render() {
         return(
             <div className='Question'>
                 <div className="Problem">
-                    <Problem problem={this.props.question}/> 
+                    <Problem>{this.props.question}</Problem>
                     {/* Insert code here to render choices*/}
                     <Choice>Sample Text</Choice>
 
@@ -16,14 +18,22 @@ class Question extends React.Component {
     }
 }
 
-function Problem(props) {
-    return(
-        <div className="Problem">
-            <p>{props.problem}</p>
-        </div>
-    )
+// Statement of problem for multiple choice Question
+class Problem extends React.Component {
+    render() {
+        const {
+            className,
+            children,
+        } = this.props;
+        return (
+            <div className={className}>
+                <p>{children}</p>
+            </div>
+        );
+    }
 }
 
+// Answer choice for multiple choice Question
 class Choice extends React.Component {
     render() {
         const {
