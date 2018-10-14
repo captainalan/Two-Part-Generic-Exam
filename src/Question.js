@@ -5,14 +5,16 @@ import './Question.css';
 // answer choices.
 class Question extends React.Component {
     render() {
-        return(
+        return (
             <div className='Question'>
-                <div className="Problem">
-                    <Problem>{this.props.question}</Problem>
-                    {/* Insert code here to render choices*/}
-                    <Choice>Sample Text</Choice>
-
-                </div>
+                <Problem>{this.props.question}</Problem>
+                {/* Insert code here to render choices*/}
+                {this.props.choices.map((choice_text, i) =>
+                    <Choice 
+                        key={i} // index of answer choice
+                        className='Choice'>{choice_text}
+                    </Choice>
+                )}
             </div>
         )
     }
@@ -37,14 +39,12 @@ class Problem extends React.Component {
 class Choice extends React.Component {
     render() {
         const {
-            onClick,
             className,
             children,
         } = this.props;
 
         return (
             <button 
-                onClick={onClick}
                 className={className}
                 type="button"  
             >
