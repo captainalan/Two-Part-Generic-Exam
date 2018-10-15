@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import QuestionList from './QuestionList.js'
+import './Exam.css'
 
 // We can shuffle the questions and answer choices and stuff on the backend
 const questions = [
-    {qid:'q1', question:'Foo?', choices:['Bar', 'Baz','Bloop','Blip']},
-    {qid:'q2', question:'Foo too?', choices:['Bar too','Baz','Bloop','Blip']},
-    {qid:'q3', question:'Foo three?', choices:['Bar tree','Baz','Bloop','Blip']},
-    {qid:'q4', question:'Foo four?', choices:['Foo for thought','answer','me','this']}
+    {question:'Foo?', choices:['Bar', 'Baz','Bloop','Blip'], correct: 1},
+    {question:'Foo too?', choices:['Bar too','Baz','Bloop','Blip'], correct: 1},
+    {question:'Foo three?', choices:['Bar tree','Baz','Bloop','Blip'], correct: 1},
+    {question:'Foo four?', choices:['Foo for thought','answer','me','this'], correct: 1}
 ]
 
 class Exam extends Component {
@@ -35,6 +35,82 @@ class Exam extends Component {
                 />
             </div>
         )
+    }
+}
+
+class QuestionList extends React.Component {
+    renderQuestion(item,i) {
+        return(
+            <Question 
+                key={item.objectId} /* Look for a better solution than this */
+                question={item.question}
+                choices={item.choices}
+            />
+        );
+    }
+    
+    render() {
+        return(
+            <div>
+                {this.props.questions.map((item, i) =>
+                // Look at tic-tac-toe example; how to use i as an identifier
+                    this.renderQuestion(item,i)
+                )}
+            </div>
+        )
+    }
+}
+
+// Each multiple choice question consists of a problem statement and
+// answer choices.
+class Question extends React.Component {
+    render() {
+        return (
+            <div className='Question'>
+                <Problem>{this.props.question}</Problem>
+                {/* Insert code here to render choices*/}
+                {this.props.choices.map((choice_text, i) =>
+                    <Choice 
+                        key={i} // index of answer choice
+                        className='Choice'>{choice_text}
+                    </Choice>
+                )}
+            </div>
+        )
+    }
+}
+
+// Statement of problem for multiple choice Question
+class Problem extends React.Component {
+    render() {
+        const {
+            className,
+            children,
+        } = this.props;
+        return (
+            <div className={className}>
+                <p>{children}</p>
+            </div>
+        );
+    }
+}
+
+// Answer choice for multiple choice Question
+class Choice extends React.Component {
+    render() {
+        const {
+            className,
+            children,
+        } = this.props;
+
+        return (
+            <button 
+                className={className}
+                type="button"  
+            >
+                {children}
+            </button>     
+        );
     }
 }
 
