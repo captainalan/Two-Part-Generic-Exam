@@ -14,12 +14,13 @@ class Exam extends Component {
         super(props);
         this.state = {
             questions:questions,
+            responses:"----" // dumb string for now
         }
+        this.selectChoice = this.selectChoice.bind(this)
     }
 
-    selectChoice(qid,resp) {
-        // console.log('You said ' + resp + ' for ' + qid);
-        // this.setState({ [qid]:resp }); // JSX trickery to use dynamic key; maybe not best practice? 
+    selectChoice(choice,question) {
+        this.responses[question].setState(choice)
     }
 
     render() {
@@ -42,7 +43,7 @@ class QuestionList extends React.Component {
     renderQuestion(item,i) {
         return(
             <Question 
-                key={item.objectId} /* Look for a better solution than this */
+                key={i} /* Look for a better solution than this */
                 question={item.question}
                 choices={item.choices}
             />
@@ -52,8 +53,7 @@ class QuestionList extends React.Component {
     render() {
         return(
             <div>
-                {this.props.questions.map((item, i) =>
-                // Look at tic-tac-toe example; how to use i as an identifier
+                {this.props.questions.map((item,i) => 
                     this.renderQuestion(item,i)
                 )}
             </div>
@@ -67,12 +67,15 @@ class Question extends React.Component {
     render() {
         return (
             <div className='Question'>
-                <Problem>{this.props.question}</Problem>
+                <Problem questionText={this.props.question}/>
                 {/* Insert code here to render choices*/}
                 {this.props.choices.map((choice_text, i) =>
                     <Choice 
                         key={i} // index of answer choice
-                        className='Choice'>{choice_text}
+                        className='Choice'
+                        onClick={(i) => console.log("WHY")}
+                    >
+                        {choice_text}
                     </Choice>
                 )}
             </div>
@@ -81,18 +84,8 @@ class Question extends React.Component {
 }
 
 // Statement of problem for multiple choice Question
-class Problem extends React.Component {
-    render() {
-        const {
-            className,
-            children,
-        } = this.props;
-        return (
-            <div className={className}>
-                <p>{children}</p>
-            </div>
-        );
-    }
+function Problem(props) {
+    return (<div><p>{props.questionText}</p></div>);
 }
 
 // Answer choice for multiple choice Question
@@ -101,12 +94,14 @@ class Choice extends React.Component {
         const {
             className,
             children,
+            onClick,
         } = this.props;
 
         return (
             <button 
                 className={className}
                 type="button"  
+                onClick={onClick}
             >
                 {children}
             </button>     
