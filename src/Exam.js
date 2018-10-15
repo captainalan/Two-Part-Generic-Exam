@@ -14,13 +14,16 @@ class Exam extends Component {
         super(props);
         this.state = {
             questions:questions,
-            responses:"----" // dumb string for now
+            responses:[] // dumb string for now
         }
         this.selectChoice = this.selectChoice.bind(this)
     }
 
-    selectChoice(choice,question) {
-        this.responses[question].setState(choice)
+    selectChoice(qid,choice) {
+        let foo = "q" + [qid]                // There's gotta be a more idiomatic way
+        let bar = { ...this.state.responses} // Copy,
+        bar[foo] = choice                    // add,
+        this.setState({responses:bar})       // and update
     }
 
     render() {
@@ -32,7 +35,8 @@ class Exam extends Component {
                 <QuestionList 
                     questions={this.state.questions} 
                     responses={this.state.responses}
-                    onClick={(qid,resp) => this.selectChoice(qid,resp)}
+                    selectChoice={(qid,choice) => this.selectChoice(qid,choice) }
+                    // onClick={(qid,resp) => this.selectChoice(qid,resp)}
                 />
             </div>
         )
@@ -40,12 +44,14 @@ class Exam extends Component {
 }
 
 class QuestionList extends React.Component {
-    renderQuestion(item,i) {
+
+    renderQuestion(item,qid) {
         return(
             <Question 
-                key={i} /* Look for a better solution than this */
+                key={'q' + [qid]} /* Look for a better solution than this */
                 question={item.question}
                 choices={item.choices}
+                choiceHandler={(choice) => this.props.selectChoice(qid,choice)}
             />
         );
     }
@@ -53,8 +59,8 @@ class QuestionList extends React.Component {
     render() {
         return(
             <div>
-                {this.props.questions.map((item,i) => 
-                    this.renderQuestion(item,i)
+                {this.props.questions.map((item,index) => 
+                    this.renderQuestion(item,index)
                 )}
             </div>
         )
@@ -71,9 +77,9 @@ class Question extends React.Component {
                 {/* Insert code here to render choices*/}
                 {this.props.choices.map((choice_text, i) =>
                     <Choice 
-                        key={i} // index of answer choice
+                        key={choice_text} // Better than using indices?
                         className='Choice'
-                        onClick={(i) => console.log("WHY")}
+                        onClick={() => this.props.choiceHandler(i)}
                     >
                         {choice_text}
                     </Choice>

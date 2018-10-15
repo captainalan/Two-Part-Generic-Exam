@@ -9,3 +9,6 @@ button.Choice {
     background: #102030 ;
     width: 150px;
 }
+button.Selected { /* Fix the CSS later */
+    background: pink;
+}
