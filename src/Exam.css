@@ -3,12 +3,15 @@ div.Question {
     background: #204060;
     padding: 10px;
 }
-button.Choice {
-    color: white;
+button {
+    width: 200px;
     padding: 10px;
+}
+button.Choice {
     background: #102030 ;
-    width: 150px;
+    color: white;
 }
 button.Selected { /* Fix the CSS later */
-    background: pink;
+    background: white;
+    color: #102030 ;
 }

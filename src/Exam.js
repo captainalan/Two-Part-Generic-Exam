@@ -6,7 +6,8 @@ const questions = [
     {question:'Foo?', choices:['Bar', 'Baz','Bloop','Blip'], correct: 1},
     {question:'Foo too?', choices:['Bar too','Baz','Bloop','Blip'], correct: 1},
     {question:'Foo three?', choices:['Bar tree','Baz','Bloop','Blip'], correct: 1},
-    {question:'Foo four?', choices:['Foo for thought','answer','me','this'], correct: 1}
+    {question:'Foo four?', choices:['Foo for thought','answer','me','this'], correct: 1},
+    {question:'Foo five', choices:['do','the','um','err'], correct: 1}
 ]
 
 class Exam extends Component {
@@ -70,16 +71,32 @@ class QuestionList extends React.Component {
 // Each multiple choice question consists of a problem statement and
 // answer choices.
 class Question extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { selected:null }; // Store state of what is selected here
+        this.choiceHandler = this.choiceHandler.bind(this);
+    }
+
+    choiceHandler(i){ // Using the same function names for dhifferent stuff 
+                      // might get confusing
+        this.props.choiceHandler(i);
+        this.setState({selected:i});
+        // Now add local stuff and highlighting effects and things
+    }
+
     render() {
+        let currentSelection = this.state.selected;
+
         return (
+
             <div className='Question'>
                 <Problem questionText={this.props.question}/>
                 {/* Insert code here to render choices*/}
                 {this.props.choices.map((choice_text, i) =>
                     <Choice 
                         key={choice_text} // Better than using indices?
-                        className='Choice'
-                        onClick={() => this.props.choiceHandler(i)}
+                        className={currentSelection === i ? 'Selected' : 'Choice'}
+                        onClick={ () => this.choiceHandler(i) }
                     >
                         {choice_text}
                     </Choice>
