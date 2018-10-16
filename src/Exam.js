@@ -32,7 +32,9 @@ class Exam extends Component {
         return(
             <div>
                 <h2>Instructions</h2>
-                <p>Do this. Do that. Bark, bark, bark. Did you hear what I said? Mumble, grumble.</p>
+                <p>Do this. Do that. Bark, bark, bark. Did you hear what I 
+                   said? Mumble, grumble.
+                </p>
                 <h2>Here are the questions.</h2>
                 <QuestionList 
                     questions={this.state.questions} 
@@ -50,23 +52,18 @@ class Exam extends Component {
 }
 
 class QuestionList extends React.Component {
-
-    renderQuestion(item,qid) {
-        return(
-            <Question 
-                key={'q' + [qid]} /* Look for a better solution than this */
-                question={item.question}
-                choices={item.choices}
-                choiceHandler={(choice) => this.props.selectChoice(qid,choice)}
-            />
-        );
-    }
-    
     render() {
+        const { questions } = this.props; // Maybe get responses props here too
         return(
             <div>
-                {this.props.questions.map((item,index) => 
-                    this.renderQuestion(item,index)
+                {questions.map((item,index) => 
+                    <Question 
+                        key={'q' + [index]} /* Look for a better solution than this */
+                        selected={true ? "ok" : "nope"} // Conditionally select
+                        question={item.question}
+                        choices={item.choices}
+                        choiceHandler={(choice) => this.props.selectChoice(index,choice)}
+                    />
                 )}
             </div>
         )
