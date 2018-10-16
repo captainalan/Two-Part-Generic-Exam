@@ -17,7 +17,6 @@ class Exam extends Component {
         super(props);
         this.state = {
             questions:questions,
-            responses:[]
         }
         this.selectChoice = this.selectChoice.bind(this)
     }
@@ -137,6 +136,5 @@ class Choice extends React.Component {
         );
     }
 }
-
 
 export default Exam

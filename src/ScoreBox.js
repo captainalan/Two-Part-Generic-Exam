@@ -47,6 +47,9 @@ class ScoreBox extends React.Component {
 
     resetExam () {
         // To do
+        // I want to make the currently selected answers for questions 
+        // come from above, rather than be stored in each question's
+        // state.
     }
 
     render() {
@@ -73,10 +76,7 @@ class ScoreBox extends React.Component {
                         "ScoreReport" : "ScoreReport hidden"}
                 >
                 <h2>Judgity Judge Judge!!!!!</h2>
-                Here I will actually report the score. The "Don't judge pls" 
-                button will hide this area.
-
-                Score: {this.state.score}
+                Score: {(this.state.score*100).toFixed(2)}%
                 </div>
             </div>
         )
