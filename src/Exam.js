@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import './Exam.css'
+import ScoreBox from './ScoreBox'
 
 // We can shuffle the questions and answer choices and stuff on the backend
+// By default, all the right answers are the second choice (we start counting at 0)
 const questions = [
     {question:'Foo?', choices:['Bar', 'Baz','Bloop','Blip'], correct: 1},
     {question:'Foo too?', choices:['Bar too','Baz','Bloop','Blip'], correct: 1},
@@ -15,7 +17,7 @@ class Exam extends Component {
         super(props);
         this.state = {
             questions:questions,
-            responses:[] // dumb string for now
+            responses:[]
         }
         this.selectChoice = this.selectChoice.bind(this)
     }
@@ -38,6 +40,10 @@ class Exam extends Component {
                     responses={this.state.responses}
                     selectChoice={(qid,choice) => this.selectChoice(qid,choice) }
                     // onClick={(qid,resp) => this.selectChoice(qid,resp)}
+                />
+                <ScoreBox 
+                    questions={this.state.questions}
+                    responses={this.state.responses}
                 />
             </div>
         )
@@ -131,5 +137,6 @@ class Choice extends React.Component {
         );
     }
 }
+
 
 export default Exam

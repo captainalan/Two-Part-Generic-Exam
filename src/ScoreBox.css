@@ -1,0 +1,6 @@
+ScoreReport {
+    display: flex;
+}
+.hidden {
+    display: none;
+}
