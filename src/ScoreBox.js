@@ -74,6 +74,12 @@ class ScoreBox extends React.Component {
                 >
                 <h2>Judgity Judge Judge!!!!!</h2>
                 Score: {(this.state.score*100).toFixed(2)}%
+
+                Here is what you wrote for your essay: 
+                
+                <pre>{this.props.essay}</pre>
+
+                (Do some basic NLP)
                 </div>
             </div>
         )

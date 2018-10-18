@@ -15,3 +15,8 @@ button.Selected { /* Fix the CSS later */
     background: white;
     color: #102030 ;
 }
+
+textarea {
+    background: #102030 ;
+    color: white;
+}

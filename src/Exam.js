@@ -18,7 +18,6 @@ class Exam extends Component {
         this.state = {
             questions:questions,
             responses:{},
-            essay:"", // Start with blank essay
         }
         this.selectChoice = this.selectChoice.bind(this)
     }
@@ -51,12 +50,14 @@ class Exam extends Component {
                     selectChoice={(qid,choice) => this.selectChoice(qid,choice) }
                     // onClick={(qid,resp) => this.selectChoice(qid,resp)}
                 />
-                <FreeResponseEssay
-                    essay={this.state.essay}
+                <FreeResponseEssay 
+                    onSubmit={essayText => {this.setState({essay:essayText})}}
                 />
+
                 <ScoreBox 
                     questions={this.state.questions}
                     responses={this.state.responses}
+                    essay={this.state.essay}
                 />
             </div>
         )
@@ -64,16 +65,45 @@ class Exam extends Component {
 }
 
 class FreeResponseEssay extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: "I think that I'm clever because..."
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
+
+    handleSubmit(event) {
+        console.log('Essay submitted ' + this.state.value)
+        event.preventDefault();
+        this.props.onSubmit(this.state.value); // Send essay up!
+    }
+
     render() {
         return(
             <div className='FreeResponeEssay'>
-            <h2>Free Response Section</h2>
-            Here, you can write about your feelings. 
-            <form>
-                <input type="text" name="essay" />            
-            </form>
+                <h2>Free Response Section</h2>
+                <form onSubmit={this.handleSubmit}>
+                <label> {/* Figure out what <label /> is for */}
+                    <p>Here, you can write about your feelings.</p>
+                    <textarea 
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                        rows="10" 
+                        cols="79"
+                        id="essay" name="essay"
+                    />
+                </label> <br />
+                <input type="submit" value="Submit" />
+                </form>
             </div>
-        )
+        );
     }
 }
 
