@@ -45,13 +45,6 @@ class ScoreBox extends React.Component {
         this.setState({scoreShowingp:false}); // Hide ScoreReport
     }
 
-    resetExam () {
-        // To do
-        // I want to make the currently selected answers for questions 
-        // come from above, rather than be stored in each question's
-        // state.
-    }
-
     render() {
         return (
             <div className="ScoreBox">
@@ -69,7 +62,11 @@ class ScoreBox extends React.Component {
                 >
                     Don't judge pls.
                 </button>
-                <button>Reset everything</button>
+                <button
+                    onClick={() => alert("What's done is done, bucko.")} 
+                >
+                    Reset everything
+                </button>
 
                 <div 
                     className={this.state.scoreShowingp ? 

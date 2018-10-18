@@ -17,15 +17,17 @@ class Exam extends Component {
         super(props);
         this.state = {
             questions:questions,
+            responses:{},
+            essay:"", // Start with blank essay
         }
         this.selectChoice = this.selectChoice.bind(this)
     }
 
-    selectChoice(qid,choice) {
-        let foo = "q" + [qid]                // There's gotta be a more idiomatic way
-        let bar = { ...this.state.responses} // Copy,
-        bar[foo] = choice                    // add,
-        this.setState({responses:bar})       // and update
+    selectChoice(questionIndex,choice) {
+        // Make a copy of state because we can't change state directly
+        let newResponses = Object.assign({}, this.state.responses);
+        newResponses['q' + questionIndex] = choice; // Update the copy
+        this.setState({responses:newResponses}); // Update state
     }
 
     render() {
@@ -35,12 +37,22 @@ class Exam extends Component {
                 <p>Do this. Do that. Bark, bark, bark. Did you hear what I 
                    said? Mumble, grumble.
                 </p>
-                <h2>Here are the questions.</h2>
+                <h2>Here are the multiple choice questions.</h2>
+
+                <p>Confine your thoughts to the provided answer choices. 
+                   You may look <em>up</em> for inspiration, <em>down</em> in 
+                   desperation, but you may NOT look <em>side to side</em> for 
+                   consolation.
+                </p>
+
                 <QuestionList 
                     questions={this.state.questions} 
                     responses={this.state.responses}
                     selectChoice={(qid,choice) => this.selectChoice(qid,choice) }
                     // onClick={(qid,resp) => this.selectChoice(qid,resp)}
+                />
+                <FreeResponseEssay
+                    essay={this.state.essay}
                 />
                 <ScoreBox 
                     questions={this.state.questions}
@@ -51,15 +63,41 @@ class Exam extends Component {
     }
 }
 
+class FreeResponseEssay extends React.Component {
+    render() {
+        return(
+            <div className='FreeResponeEssay'>
+            <h2>Free Response Section</h2>
+            Here, you can write about your feelings. 
+            <form>
+                <input type="text" name="essay" />            
+            </form>
+            </div>
+        )
+    }
+}
+
 class QuestionList extends React.Component {
+    choiceSelected(qid) {
+        // qid is something like 'q1'; returns first found response to 
+        // this question (e.g. 0, 1). Otherwise, returns null
+        if (this.props.responses && (qid in this.props.responses)) {
+            return this.props.responses[qid];
+        }
+        return null;
+    }
+    constructor(props) {
+        super(props);
+        this.choiceSelected = this.choiceSelected.bind(this);
+    }
     render() {
         const { questions } = this.props; // Maybe get responses props here too
         return(
             <div>
-                {questions.map((item,index) => 
+                {questions.map((item,index) =>
                     <Question 
                         key={'q' + [index]} /* Look for a better solution than this */
-                        selected={true ? "ok" : "nope"} // Conditionally select
+                        selected={this.choiceSelected('q' + [index])}
                         question={item.question}
                         choices={item.choices}
                         choiceHandler={(choice) => this.props.selectChoice(index,choice)}
@@ -75,20 +113,14 @@ class QuestionList extends React.Component {
 class Question extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { selected:null }; // Store state of what is selected here
         this.choiceHandler = this.choiceHandler.bind(this);
     }
 
-    choiceHandler(i){ // Using the same function names for dhifferent stuff 
-                      // might get confusing
+    choiceHandler(i){ 
         this.props.choiceHandler(i);
-        this.setState({selected:i});
-        // Now add local stuff and highlighting effects and things
     }
 
     render() {
-        let currentSelection = this.state.selected;
-
         return (
 
             <div className='Question'>
@@ -97,7 +129,7 @@ class Question extends React.Component {
                 {this.props.choices.map((choice_text, i) =>
                     <Choice 
                         key={choice_text} // Better than using indices?
-                        className={currentSelection === i ? 'Selected' : 'Choice'}
+                        className={i === this.props.selected ? 'Selected' : 'Choice'}
                         onClick={ () => this.choiceHandler(i) }
                     >
                         {choice_text}
