@@ -69,11 +69,8 @@ class FreeResponseEssay extends React.Component {
                 </label> <br />
                     <input type="submit" value="Submit" />
                 </form>
-                {this.state.essay_submitted ? 
-                    <p>Your essay has been submitted!</p>
-                    : null }
-
-
+                {this.state.essay_submitted && 
+                    <p className="Success">Your essay has been submitted!</p>}
             </div>
         );
     }

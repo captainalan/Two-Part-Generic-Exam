@@ -9,6 +9,15 @@ p {
     margin: 5px;
 }
 
+/* Colors to denote success and failure */
+.Success {
+    color: forestgreen
+}
+
+.Failure {
+    color: red
+}
+
 div.Question {
     margin: 4px;
     background: #d4d0c7;
@@ -30,6 +39,7 @@ button.Selected { /* Fix the CSS later */
 
 input {
     position: relative;
+    margin: 10px;
     padding: 10px;
     width: 300px;
     background: #8b8885;
@@ -38,7 +48,7 @@ input {
 
 div .EssayDisplay {
     margin: 20px;
-    padding: 10 px;
+    padding: 10px;
     font-size: 75%;
     color: #666666;
 }
@@ -46,6 +56,7 @@ div .EssayDisplay {
 textarea {
     margin: 10px;
     padding: 10px;
+    width: 90%;
     background: #d4d0c7;
     color: rgb(27, 17, 3);
     font-size: 14px
