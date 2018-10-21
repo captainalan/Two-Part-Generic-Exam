@@ -1,22 +1,53 @@
-div.Question {
+
+h1, h2, h3 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin: 10px;
-    background: #204060;
+}
+
+p {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 5px;
+}
+
+div.Question {
+    margin: 4px;
+    background: #d4d0c7;
     padding: 10px;
 }
 button {
     width: 200px;
     padding: 10px;
+    margin: 5px;
 }
 button.Choice {
-    background: #102030 ;
-    color: white;
+    background: #8b8885;
+    color: rgb(27, 17, 3);
 }
 button.Selected { /* Fix the CSS later */
     background: white;
-    color: #102030 ;
+    color: rgb(27, 17, 3);
+}
+
+input {
+    position: relative;
+    padding: 10px;
+    width: 300px;
+    background: #8b8885;
+
+}
+
+div .EssayDisplay {
+    margin: 20px;
+    padding: 10 px;
+    font-size: 75%;
+    color: #666666;
 }
 
 textarea {
-    background: #102030 ;
-    color: white;
+    margin: 10px;
+    padding: 10px;
+    background: #d4d0c7;
+    color: rgb(27, 17, 3);
+    font-size: 14px
 }
+

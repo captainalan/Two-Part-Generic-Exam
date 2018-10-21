@@ -36,7 +36,6 @@ class ScoreBox extends React.Component {
     }
 
     showScore () {
-        
         this.calculateScore(); // First update score calculation,
         this.setState({scoreShowingp:true}); // then make it visible.
     }
@@ -52,17 +51,20 @@ class ScoreBox extends React.Component {
                 <p>I give out grades.</p>
 
                 <button
+                    className='Choice'
                     onClick={this.showScore}
                 >
                     How'd I do?
                 </button>
 
                 <button
+                    className='Choice'
                     onClick={this.hideScore} 
                 >
                     Don't judge pls.
                 </button>
                 <button
+                    className='Choice'
                     onClick={() => alert("What's done is done, bucko.")} 
                 >
                     Reset everything
@@ -72,14 +74,13 @@ class ScoreBox extends React.Component {
                     className={this.state.scoreShowingp ? 
                         "ScoreReport" : "ScoreReport hidden"}
                 >
-                <h2>Judgity Judge Judge!!!!!</h2>
-                Score: {(this.state.score*100).toFixed(2)}%
+                <h2>Evaluation</h2>
+                <p>Score: {(this.state.score*100).toFixed(2)}%</p>
 
-                Here is what you wrote for your essay: 
+                <p>Here is what you wrote for your essay: </p>
                 
-                <pre>{this.props.essay}</pre>
+                <div className="EssayDisplay">{this.props.essay}</div>
 
-                (Do some basic NLP)
                 </div>
             </div>
         )

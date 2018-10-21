@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App-header">
-        <h1>Multiple Choice Test</h1>
+        <h1>Sample Exam</h1>
         <Exam />
       </div>
     );
