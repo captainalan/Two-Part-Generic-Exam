@@ -21,15 +21,29 @@ class Exam extends Component {
         this.state = {
             questions:questions,
             responses:{},
+            showingScore:false,
         }
         this.selectChoice = this.selectChoice.bind(this)
+        this.toggleShowScore = this.toggleShowScore.bind(this)
+        this.resetExam = this.resetExam.bind(this)
+    }
+
+    /* Reset entire exam */
+    resetExam() {
+        this.setState({responses:{}});
+        this.setState({showingScore:false});
+        // this.setState({essay:''});
     }
 
     selectChoice(questionIndex,choice) {
-        // Make a copy of state because we can't change state directly
         let newResponses = Object.assign({}, this.state.responses);
-        newResponses['q' + questionIndex] = choice; // Update the copy
-        this.setState({responses:newResponses}); // Update state
+        newResponses['q' + questionIndex] = choice;
+        this.setState({responses:newResponses});
+    }
+
+    toggleShowScore(){
+        this.state.showingScore ? 
+            this.setState({showingScore:false}) : this.setState({showingScore:true})
     }
 
     render() {
@@ -51,9 +65,11 @@ class Exam extends Component {
                     questions={this.state.questions} 
                     responses={this.state.responses}
                     selectChoice={(qid,choice) => this.selectChoice(qid,choice) }
-                    // onClick={(qid,resp) => this.selectChoice(qid,resp)}
+                    showingScore={this.state.showingScore}
                 />
+
                 <FreeResponseEssay 
+                    initial_text={"I think that I am clever because..."}
                     onSubmit={essayText => {this.setState({essay:essayText})}}
                 />
 
@@ -61,12 +77,14 @@ class Exam extends Component {
                     questions={this.state.questions}
                     responses={this.state.responses}
                     essay={this.state.essay}
+                    toggleShowScore={this.toggleShowScore}
+                    showingScore={this.state.showingScore}
+                    reset={this.resetExam}
                 />
             </div>
         )
     }
 }
-
 
 
 export default Exam

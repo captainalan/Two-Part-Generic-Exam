@@ -23,6 +23,13 @@ div.Question {
     background: #d4d0c7;
     padding: 10px;
 }
+
+div.Answer {
+    margin: 4px;
+    background: #d4d0c7;
+    padding: 10px;
+}
+
 button {
     width: 200px;
     padding: 10px;

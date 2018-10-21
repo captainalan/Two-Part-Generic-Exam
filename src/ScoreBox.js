@@ -12,8 +12,7 @@ class ScoreBox extends React.Component {
         }
 
         this.calculateScore = this.calculateScore.bind(this);
-        this.showScore = this.showScore.bind(this);
-        this.hideScore = this.hideScore.bind(this);
+        this.toggleShowScore = this.toggleShowScore.bind(this);
     }
 
     calculateScore () {
@@ -35,13 +34,10 @@ class ScoreBox extends React.Component {
         this.setState({score:my_score/total_possible});
     }
 
-    showScore () {
+    toggleShowScore () {
         this.calculateScore(); // First update score calculation,
-        this.setState({scoreShowingp:true}); // then make it visible.
-    }
-
-    hideScore () {
-        this.setState({scoreShowingp:false}); // Hide ScoreReport
+        // this.setState({scoreShowingp:true}); // then make it visible.
+        this.props.toggleShowScore();
     }
 
     render() {
@@ -52,34 +48,31 @@ class ScoreBox extends React.Component {
 
                 <button
                     className='Choice'
-                    onClick={this.showScore}
+                    onClick={this.toggleShowScore}
                 >
-                    How'd I do?
+                    {!this.props.showingScore ? "How'd I do?" : "Hide score"}
                 </button>
 
                 <button
                     className='Choice'
-                    onClick={this.hideScore} 
+                    onClick={this.props.reset} 
                 >
-                    Don't judge pls.
-                </button>
-                <button
-                    className='Choice'
-                    onClick={() => alert("What's done is done, bucko.")} 
-                >
-                    Reset everything
+                    Reset multiple choice
                 </button>
 
                 <div 
-                    className={this.state.scoreShowingp ? 
+                    className={this.props.showingScore ? 
                         "ScoreReport" : "ScoreReport hidden"}
                 >
                 <h2>Evaluation</h2>
-                <p>Score: {(this.state.score*100).toFixed(2)}%</p>
+                <p>Your score: {(this.state.score*100).toFixed(2)}%</p>
+                <p>Scroll back up to the questions to see the correct answers.</p>
 
                 <p>Here is what you wrote for your essay: </p>
                 
                 <div className="EssayDisplay">{this.props.essay}</div>
+
+                <p>Seems okay to me.</p>
 
                 </div>
             </div>

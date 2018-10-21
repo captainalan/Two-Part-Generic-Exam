@@ -6,11 +6,10 @@ class FreeResponseEssay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            initial_text: "I think that I'm clever because...",
             essay_submitted: false,
         };
 
-        this.state.value = this.state.initial_text;
+        this.state.value = this.props.initial_text;
 
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -20,14 +19,14 @@ class FreeResponseEssay extends React.Component {
 
     handleClick(event) {
         // Clear the original prompt text when user clicks text area
-        if (this.state.value === this.state.initial_text){
+        if (this.state.value === this.props.initial_text){
             this.setState({value: ''});
         }
     }
 
     handleBlur(event) {
         if (this.state.value === ''){
-            this.setState({value: this.state.initial_text});
+            this.setState({value: this.props.initial_text});
         }
     }
 

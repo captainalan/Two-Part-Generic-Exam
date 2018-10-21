@@ -25,8 +25,10 @@ class QuestionList extends React.Component {
                         key={'q' + [index]} /* Look for a better solution than this */
                         selected={this.choiceSelected('q' + [index])}
                         question={item.question}
+                        correct={item.correct}
                         choices={item.choices}
                         choiceHandler={(choice) => this.props.selectChoice(index,choice)}
+                        showingScore={this.props.showingScore}
                     />
                 )}
             </div>
@@ -50,8 +52,10 @@ class Question extends React.Component {
     render() {
         return (
             <div className='Question'>
+
                 <Problem questionText={this.props.question}/>
                 {/* Insert code here to render choices*/}
+
                 {this.props.choices.map((choice_text, i) =>
                     <Choice 
                         key={choice_text} // Better than using indices?
@@ -61,6 +65,12 @@ class Question extends React.Component {
                         {choice_text}
                     </Choice>
                 )}
+                <div className={this.props.showingScore ? "Answer" : "hidden" }>
+                    {this.props.selected === this.props.correct ? 
+                        <p className="Success">You're right!</p> 
+                        : <p className="Failure">The correct answer is: "{this.props.choices[this.props.correct]}"</p> }
+                    
+                </div>
             </div>
         )
     }
