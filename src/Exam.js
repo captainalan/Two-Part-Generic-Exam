@@ -13,6 +13,7 @@ const questions = [
 ]
 
 class Exam extends Component {
+
     constructor(props){
         super(props);
         this.state = {
@@ -33,9 +34,9 @@ class Exam extends Component {
         return(
             <div>
                 <h2>Instructions</h2>
-                <p>Do this. Do that. Bark, bark, bark. Did you hear what I 
-                   said? Mumble, grumble.
-                </p>
+                <p>Do this. Do that. Bark, bark, bark. Did you hear what I said? 
+                    Mumble, grumble.</p>
+
                 <h2>Here are the multiple choice questions.</h2>
 
                 <p>Confine your thoughts to the provided answer choices. 
@@ -65,6 +66,7 @@ class Exam extends Component {
 }
 
 class FreeResponseEssay extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -127,13 +129,13 @@ class FreeResponseEssay extends React.Component {
                     <p>Current word count is approximately {this.wordCount()} words.</p>
                     {!this.state.essay_submitted ? 
                         <p>Remember to click the Submit button to submit your essay!</p> 
-                        : '' }
+                        : null }
                 </label> <br />
                     <input type="submit" value="Submit" />
                 </form>
                 {this.state.essay_submitted ? 
                     <p>Your essay has been submitted!</p>
-                    : ''}
+                    : null }
 
 
             </div>
@@ -142,6 +144,7 @@ class FreeResponseEssay extends React.Component {
 }
 
 class QuestionList extends React.Component {
+
     choiceSelected(qid) {
         // qid is something like 'q1'; returns first found response to 
         // this question (e.g. 0, 1). Otherwise, returns null
@@ -154,6 +157,7 @@ class QuestionList extends React.Component {
         super(props);
         this.choiceSelected = this.choiceSelected.bind(this);
     }
+
     render() {
         const { questions } = this.props; // Maybe get responses props here too
         return(
@@ -175,6 +179,7 @@ class QuestionList extends React.Component {
 // Each multiple choice question consists of a problem statement and
 // answer choices.
 class Question extends React.Component {
+
     constructor(props) {
         super(props);
         this.choiceHandler = this.choiceHandler.bind(this);
@@ -186,7 +191,6 @@ class Question extends React.Component {
 
     render() {
         return (
-
             <div className='Question'>
                 <Problem questionText={this.props.question}/>
                 {/* Insert code here to render choices*/}
@@ -211,13 +215,13 @@ function Problem(props) {
 
 // Answer choice for multiple choice Question
 class Choice extends React.Component {
+
     render() {
         const {
             className,
             children,
             onClick,
         } = this.props;
-
         return (
             <button 
                 className={className}
