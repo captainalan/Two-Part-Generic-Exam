@@ -1,6 +1,8 @@
 # Two Part Generic Exam
 
-I built this project while learning the basics of React. 
+I built this project while learning the basics of React.
+See it online on [Github
+pages](https://captainalan.github.io/two-part-generic-exam/).
 
 ## Features
 
